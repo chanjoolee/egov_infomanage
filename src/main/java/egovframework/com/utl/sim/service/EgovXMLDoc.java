@@ -26,7 +26,7 @@ import egovframework.com.cmm.EgovWebUtil;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.Globals;
 import egovframework.com.cmm.util.EgovResourceCloseHelper;
-
+/*
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -35,21 +35,21 @@ import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamResult;*/
 
 import noNamespace.SndngMailDocument;
-
+/*
 import org.apache.xmlbeans.XmlOptions;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.Text;
+import org.w3c.dom.Text;*/
 
 public class EgovXMLDoc {
 
 	// 파일구분자
 	static final char FILE_SEPARATOR = File.separatorChar;
-
+ 
 	// 최대 문자길이
 	static final int MAX_STR_LEN = 1024;
 
@@ -162,13 +162,14 @@ public class EgovXMLDoc {
 			File xmlFile = new File(EgovWebUtil.filePathBlackList(file1));
 			fos = new FileOutputStream(xmlFile);
 
-			XmlOptions xmlOptions = new XmlOptions();
-			xmlOptions.setSavePrettyPrint();
-			xmlOptions.setSavePrettyPrintIndent(4);
-			xmlOptions.setCharacterEncoding("UTF-8");
-			String xmlStr = mailDoc.xmlText(xmlOptions);
+			/*
+			 * XmlOptions xmlOptions = new XmlOptions(); xmlOptions.setSavePrettyPrint();
+			 * xmlOptions.setSavePrettyPrintIndent(4);
+			 * xmlOptions.setCharacterEncoding("UTF-8"); String xmlStr =
+			 * mailDoc.xmlText(xmlOptions);
+			 */
 
-			fos.write(xmlStr.getBytes("UTF-8"));
+			//fos.write(xmlStr.getBytes("UTF-8"));
 			result = true;
 
 		} finally {
@@ -184,9 +185,9 @@ public class EgovXMLDoc {
 	 * @return Document document 문서객체
 	 * @exception Exception
 	*/
-	public static Document getXMLDocument(String xml) throws Exception {
+	public static void/*Document*/ getXMLDocument(String xml) throws Exception {
 
-		Document xmlDoc = null;
+		//Document xmlDoc = null;
 
 		String file = xml.replace('\\', FILE_SEPARATOR).replace('/', FILE_SEPARATOR);
 		File srcFile = new File(file);
@@ -194,18 +195,18 @@ public class EgovXMLDoc {
 		try {
 			if (srcFile.exists() && srcFile.isFile()) {
 
-				fis = new FileInputStream(srcFile);
-				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder builder = null;
-				factory.setValidating(true);
-				builder = factory.newDocumentBuilder();
-				xmlDoc = builder.parse(fis);
+				/*
+				 * fis = new FileInputStream(srcFile); DocumentBuilderFactory factory =
+				 * DocumentBuilderFactory.newInstance(); DocumentBuilder builder = null;
+				 * factory.setValidating(true); builder = factory.newDocumentBuilder(); xmlDoc =
+				 * builder.parse(fis);
+				 */
 			}
 		} finally {
 			EgovResourceCloseHelper.close(fis);
 		}
 
-		return xmlDoc;
+		//return xmlDoc;
 	}
 
 	/**
@@ -214,10 +215,11 @@ public class EgovXMLDoc {
 	 * @return Element root 루트
 	 * @exception Exception
 	*/
-	public static Element getRootElement(Document document) throws Exception {
+	public static void /* Element */ getRootElement(/* Document document */) throws Exception {
 
-		Element root = document.getDocumentElement();
-		return root;
+		/*
+		 * Element root = document.getDocumentElement(); return root;
+		 */
 	}
 
 	/**
@@ -228,20 +230,16 @@ public class EgovXMLDoc {
 	 * @return Element element 추가된 Element
 	 * @exception Exception
 	*/
-	public static Element insertElement(Document document, Element rt, String id) throws Exception {
+	public static void/* Element */ insertElement1(/* Document document, Element rt, String id */) throws Exception {
 
-		Element child = null;
-		Element root = null;
-		
-		if (rt == null) {
-			root = getRootElement(document);
-		} else {
-			root = rt;
-		}
-		child = document.createElement(id);
-		root.appendChild(child);
-		
-		return child;
+		/*
+		 * Element child = null; Element root = null;
+		 * 
+		 * if (rt == null) { root = getRootElement(document); } else { root = rt; }
+		 * child = document.createElement(id); root.appendChild(child);
+		 * 
+		 * return child;
+		 */
 	}
 
 	/**
@@ -253,9 +251,9 @@ public class EgovXMLDoc {
 	 * @return Element element 추가된 Element
 	 * @exception Exception
 	*/
-	public static Element insertElement(Document document, Element rt, String id, String text) throws Exception {
+	public static void/*Element*/ insertElement(/*Document document, Element rt, String id, String text*/) throws Exception {
 
-		Element echild = null;
+		/*Element echild = null;
 		Text tchild = null;
 		Element root = null;
 
@@ -269,7 +267,7 @@ public class EgovXMLDoc {
 		tchild = document.createTextNode(text);
 		echild.appendChild(tchild);
 		
-		return echild;
+		return echild;*/
 	}
 
 	/**
@@ -281,20 +279,16 @@ public class EgovXMLDoc {
 	 * @return Element element 추가된 Element
 	 * @exception Exception
 	*/
-	public static Text insertText(Document document, Element rt, String text) throws Exception {
+	public static void/* Text */ insertText(/* Document document, Element rt, String text */) throws Exception {
 
-		Text tchild = null;
-		Element root = null;
-
-		if (rt == null) {
-			root = getRootElement(document);
-		} else {
-			root = rt;
-		}
-		tchild = document.createTextNode(text);
-		root.appendChild(tchild);
-		
-		return tchild;
+		/*
+		 * Text tchild = null; Element root = null;
+		 * 
+		 * if (rt == null) { root = getRootElement(document); } else { root = rt; }
+		 * tchild = document.createTextNode(text); root.appendChild(tchild);
+		 * 
+		 * return tchild;
+		 */
 	}
 
 	/**
@@ -303,10 +297,11 @@ public class EgovXMLDoc {
 	 * @return Element parent 상위노드
 	 * @exception Exception
 	*/
-	public static Element getParentNode(Element current) throws Exception {
+	public static void/*Element*/ getParentNode(/* Element current */) throws Exception {
 
-		Node parent = current.getParentNode();
-		return (Element) parent;
+		/*
+		 * Node parent = current.getParentNode(); return (Element) parent;
+		 */
 	}
 
 	/**
@@ -316,22 +311,24 @@ public class EgovXMLDoc {
 	 * @return boolean 저장여부 True / False
 	 * @exception Exception
 	*/
-	public static boolean getXMLFile(Document document, String file) throws Exception {
+	public static boolean getXMLFile(/* Document document, */ String file) throws Exception {
+		return false;
 
-		boolean retVal = false;
-
-		String file1 = file.replace('\\', FILE_SEPARATOR).replace('/', FILE_SEPARATOR);
-		File srcFile = new File(file1);
-		if (srcFile.exists() && srcFile.isFile()) {
-
-			Source source = new DOMSource(document);
-			Result result = new StreamResult(srcFile);
-			Transformer transformer = TransformerFactory.newInstance().newTransformer();
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.transform(source, result);
-		}
-
-		return retVal;
+		/*
+		 * boolean retVal = false;
+		 * 
+		 * String file1 = file.replace('\\', FILE_SEPARATOR).replace('/',
+		 * FILE_SEPARATOR); File srcFile = new File(file1); if (srcFile.exists() &&
+		 * srcFile.isFile()) {
+		 * 
+		 * Source source = new DOMSource(document); Result result = new
+		 * StreamResult(srcFile); Transformer transformer =
+		 * TransformerFactory.newInstance().newTransformer();
+		 * transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+		 * transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		 * transformer.transform(source, result); }
+		 * 
+		 * return retVal;
+		 */
 	}
 }

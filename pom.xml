@@ -570,6 +570,50 @@
 		
         <!-- 공통컴포넌트 끝 -->
         
+        <dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.java-websocket</groupId>
+		    <artifactId>Java-WebSocket</artifactId>
+		    <version>1.5.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>javax.jms</groupId>
+		    <artifactId>javax.jms-api</artifactId>
+		    <version>2.0.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		    <version>2.3.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.jcraft</groupId>
+		    <artifactId>jsch</artifactId>
+		    <version>0.1.55</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.ftpserver</groupId>
+		    <artifactId>ftpserver-core</artifactId>
+		    <version>1.1.1</version>
+		    <scope>test</scope>
+		</dependency>
+
+
         <!-- 이찬주  -->        
         <dependency>
 		    <groupId>net.sf.json-lib</groupId>
@@ -587,6 +631,7 @@
 			<artifactId>jersey-multipart</artifactId>
 			<version>1.8</version>
 		</dependency>
+        
 
     </dependencies>
     <build>

@@ -33,200 +33,270 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**
-*
-* 조직도 기능 관련 서비스 객체 
-* @author 전우성
-* @since 2014.10.12
-* @version 1.0
-* @see
-*
-* <pre>
+ *
+ * 조직도 기능 관련 서비스 객체
+ * 
+ * @author 전우성
+ * @since 2014.10.12
+ * @version 1.0
+ * @see
+ *
+ *      <pre>
 * << 개정이력(Modification Information) >>
 *
 *   수정일      수정자           수정내용
 *  -------    --------    ---------------------------
 *   2014.10.12  전우성          최초 생성
-*
-* </pre>
-*/
+ *
+ *      </pre>
+ */
 @Service("orgManageLdapService")
-public class EgovOrgManageLdapServiceImpl extends EgovAbstractServiceImpl implements EgovOrgManageLdapService {
+public class EgovOrgManageLdapServiceImpl  /*extends EgovAbstractServiceImpl*/ implements EgovOrgManageLdapService  {
 
-	@Resource(name = "DeptManageLdapDAO")
+	@Resource(name = "DeptManageLdapDAO") 
 	private DeptManageLdapDAO deptManageLdapDAO;
 
 	@Resource(name = "UserManageLdapDAO")
 	private UserManageLdapDAO userManageLdapDAO;
 
+	@Override
+	public Map<String, Object> selectDeptManageSubList(String dn) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object> selectDeptManageSubListByOuCode(String ouCode) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UcorgVO selectDeptManage(UcorgVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateDeptManage(UcorgVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Map<String, Object> insertDeptManage(String parentDn, String ou) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> insertUserManage(String parentDn, String cn) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteDeptManage(String dn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void renameDeptManage(String dn, String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void renameUserManage(String dn, String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void moveOrgManage(String dn, String parentDn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Map<String, Object> selectDeptManage(String dn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> selectUserManage(String dn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void modifyDeptManage(UcorgVO ucorgVO) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void modifyUserManage(UserVO userVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/**
 	 * 등록된 부서의 정보를 조회한다.
 	 */
-	public Map<String, Object> selectDeptManage(String dn) {
-		UcorgVO vo = deptManageLdapDAO.selectDeptManageByDn(dn);
-
-		@SuppressWarnings("unchecked")
-		Map<String, Object> map = new org.apache.commons.beanutils.BeanMap(vo);
-
-		return map;
-	}
-
-	/**
-	 * 등록된 사용자의 정보를 조회한다.
-	 */
-	public Map<String, Object> selectUserManage(String dn) {
-		UserVO vo = userManageLdapDAO.selectUserManageByDn(dn);
-		
-		@SuppressWarnings("unchecked")
-		Map<String, Object> map = new org.apache.commons.beanutils.BeanMap(vo);
-		
-		return map;
-	}
-	
-	/**
-	 * 등록된 부서의 목록을 조회한다.
-	 */
-	@SuppressWarnings("unchecked")
-	public Map<String, Object> selectDeptManageSubList(String dn) throws Exception {
-		UcorgVO u = deptManageLdapDAO.selectDeptManageByDn(dn);
-
-		LdapTreeObject object = new LdapTreeObject(u.getOu(), dn);
-
-		List<Object> list = deptManageLdapDAO.selectDeptManageSubList(dn);
-
-		for (Object o : list) {
-			UcorgVO vo = (UcorgVO) o;
-			boolean hasChildren = deptManageLdapDAO.hasChildren(vo.getDn());
-			object.addChild(vo, hasChildren);
-		}
-
-		List<Object> userList = userManageLdapDAO.selectUserManageList(dn);
-
-		for (Object o : userList) {
-			UserVO vo = (UserVO) o;
-			object.addChild(vo);
-		}
-
-		Map<String, Object> map = new org.apache.commons.beanutils.BeanMap(object);
-
-		return map;
-	}
-
-	/**
-	 * ouCode로 하위부서의 목록을 조회한다.
-	 */
-	public List<Object> selectDeptManageSubListByOuCode(String ouCode) throws Exception {
-		return deptManageLdapDAO.selectDeptManageSubListByOuCode(ouCode);
-	}
-
-	/**
-	 * VO의 조건에 부합하는 부서를 조회한다. 
-	 */
-	public UcorgVO selectDeptManage(UcorgVO vo) throws Exception {
-		return deptManageLdapDAO.selectDeptManage(vo);
-	}
-
-
-	/**
-	 * 기등록된 부서정보를 수정한다.
-	 */
-	public void updateDeptManage(UcorgVO vo) throws Exception {
-		deptManageLdapDAO.updateDeptManage(vo);
-	}
-
-	/**
-	 * 부서를 추가한다.
-	 */
-	public Map<String, Object> insertDeptManage(String parentDn, String ou) throws Exception {
-		UcorgVO vo = new UcorgVO();
-		vo.setDn("ou=" + ou + ", " + parentDn);
-		vo.setOu(ou);
-		vo.setOuCode("0000000");
-
-		deptManageLdapDAO.insertDeptManage(vo);
-		LdapTreeObject object = new LdapTreeObject(vo.getOu(), vo.getDn());
-		@SuppressWarnings("unchecked")
-		Map<String, Object> map = new org.apache.commons.beanutils.BeanMap(object);
-
-		return map;
-	}
-
-	/**
-	 * 사용자를 추가한다.
-	 */
-	public Map<String, Object> insertUserManage(String parentDn, String cn) throws Exception {
-		UserVO vo = new UserVO();
-		vo.setDn("cn=" + cn + ", " + parentDn);
-		vo.setCn(cn);
-
-		userManageLdapDAO.insertUserManage(vo);
-
-		LdapTreeObject object = new LdapTreeObject(vo.getOu(), vo.getDn());
-		@SuppressWarnings("unchecked")
-		Map<String, Object> map = new org.apache.commons.beanutils.BeanMap(object);
-
-		return map;
-	}
-
-	/**
-	 * 사용자 정보를 삭제한다.
-	 */
-	public void deleteDeptManage(String dn) {
-		deptManageLdapDAO.deleteDeptManage(dn);
-	}
-
-	/**
-	 * 부서의 이름을 변경한다.
-	 */
-	public void renameDeptManage(String dn, String name) {
-		String[] nodes = dn.split(",");
-		nodes[0] = "ou=" + name;
-
-		String newDn = "";
-		for (String node : nodes) {
-			newDn = newDn + "," + node;
-		}
-
-		newDn = newDn.substring(1);
-		deptManageLdapDAO.moveDeptManage(dn, newDn);
-	}
-
-	/**
-	 * 사용자의 이름을 변경한다.
-	 */
-	public void renameUserManage(String dn, String name) {
-		String[] nodes = dn.split(",");
-		nodes[0] = "cn=" + name;
-
-		String newDn = "";
-		for (String node : nodes) {
-			newDn = newDn + "," + node;
-		}
-
-		newDn = newDn.substring(1);
-		userManageLdapDAO.moveUserManage(dn, newDn);
-	}
-
-	/**
-	 * 조직을 이동한다.
-	 */
-	public void moveOrgManage(String dn, String parentDn) {
-		String name = dn.split(",")[0];
-
-		deptManageLdapDAO.moveDeptManage(dn, name + "," + parentDn);
-	}
-
-	/**
-	 * 부서정보를 수정한다.
-	 */
-	public void modifyDeptManage(UcorgVO ucorgVO) throws Exception {
-		deptManageLdapDAO.updateDeptManage(ucorgVO);		
-	}
-
-	/**
-	 * 사용자의 정보를 수정한다.
-	 */
-	public void modifyUserManage(UserVO userVO) {
-		userManageLdapDAO.updateUserManage(userVO);
-	}
+	/*
+	 * public Map<String, Object> selectDeptManage(String dn) { UcorgVO vo =
+	 * deptManageLdapDAO.selectDeptManageByDn(dn);
+	 * 
+	 * @SuppressWarnings("unchecked") Map<String, Object> map = new
+	 * org.apache.commons.beanutils.BeanMap(vo);
+	 * 
+	 * return map; }
+	 * 
+	 *//**
+		 * 등록된 사용자의 정보를 조회한다.
+		 */
+	/*
+	 * public Map<String, Object> selectUserManage(String dn) { UserVO vo =
+	 * userManageLdapDAO.selectUserManageByDn(dn);
+	 * 
+	 * @SuppressWarnings("unchecked") Map<String, Object> map = new
+	 * org.apache.commons.beanutils.BeanMap(vo);
+	 * 
+	 * return map; }
+	 * 
+	 *//**
+		 * 등록된 부서의 목록을 조회한다.
+		 */
+	/*
+	 * @SuppressWarnings("unchecked") public Map<String, Object>
+	 * selectDeptManageSubList(String dn) throws Exception { UcorgVO u =
+	 * deptManageLdapDAO.selectDeptManageByDn(dn);
+	 * 
+	 * LdapTreeObject object = new LdapTreeObject(u.getOu(), dn);
+	 * 
+	 * List<Object> list = deptManageLdapDAO.selectDeptManageSubList(dn);
+	 * 
+	 * for (Object o : list) { UcorgVO vo = (UcorgVO) o; boolean hasChildren =
+	 * deptManageLdapDAO.hasChildren(vo.getDn()); object.addChild(vo, hasChildren);
+	 * }
+	 * 
+	 * List<Object> userList = userManageLdapDAO.selectUserManageList(dn);
+	 * 
+	 * for (Object o : userList) { UserVO vo = (UserVO) o; object.addChild(vo); }
+	 * 
+	 * Map<String, Object> map = new org.apache.commons.beanutils.BeanMap(object);
+	 * 
+	 * return map; }
+	 * 
+	 *//**
+		 * ouCode로 하위부서의 목록을 조회한다.
+		 */
+	/*
+	 * public List<Object> selectDeptManageSubListByOuCode(String ouCode) throws
+	 * Exception { return deptManageLdapDAO.selectDeptManageSubListByOuCode(ouCode);
+	 * }
+	 * 
+	 *//**
+		 * VO의 조건에 부합하는 부서를 조회한다.
+		 */
+	/*
+	 * public UcorgVO selectDeptManage(UcorgVO vo) throws Exception { return
+	 * deptManageLdapDAO.selectDeptManage(vo); }
+	 * 
+	 * 
+	 *//**
+		 * 기등록된 부서정보를 수정한다.
+		 */
+	/*
+	 * public void updateDeptManage(UcorgVO vo) throws Exception {
+	 * deptManageLdapDAO.updateDeptManage(vo); }
+	 * 
+	 *//**
+		 * 부서를 추가한다.
+		 */
+	/*
+	 * public Map<String, Object> insertDeptManage(String parentDn, String ou)
+	 * throws Exception { UcorgVO vo = new UcorgVO(); vo.setDn("ou=" + ou + ", " +
+	 * parentDn); vo.setOu(ou); vo.setOuCode("0000000");
+	 * 
+	 * deptManageLdapDAO.insertDeptManage(vo); LdapTreeObject object = new
+	 * LdapTreeObject(vo.getOu(), vo.getDn());
+	 * 
+	 * @SuppressWarnings("unchecked") Map<String, Object> map = new
+	 * org.apache.commons.beanutils.BeanMap(object);
+	 * 
+	 * return map; }
+	 * 
+	 *//**
+		 * 사용자를 추가한다.
+		 */
+	/*
+	 * public Map<String, Object> insertUserManage(String parentDn, String cn)
+	 * throws Exception { UserVO vo = new UserVO(); vo.setDn("cn=" + cn + ", " +
+	 * parentDn); vo.setCn(cn);
+	 * 
+	 * userManageLdapDAO.insertUserManage(vo);
+	 * 
+	 * LdapTreeObject object = new LdapTreeObject(vo.getOu(), vo.getDn());
+	 * 
+	 * @SuppressWarnings("unchecked") Map<String, Object> map = new
+	 * org.apache.commons.beanutils.BeanMap(object);
+	 * 
+	 * return map; }
+	 * 
+	 *//**
+		 * 사용자 정보를 삭제한다.
+		 */
+	/*
+	 * public void deleteDeptManage(String dn) {
+	 * deptManageLdapDAO.deleteDeptManage(dn); }
+	 * 
+	 *//**
+		 * 부서의 이름을 변경한다.
+		 */
+	/*
+	 * public void renameDeptManage(String dn, String name) { String[] nodes =
+	 * dn.split(","); nodes[0] = "ou=" + name;
+	 * 
+	 * String newDn = ""; for (String node : nodes) { newDn = newDn + "," + node; }
+	 * 
+	 * newDn = newDn.substring(1); deptManageLdapDAO.moveDeptManage(dn, newDn); }
+	 * 
+	 *//**
+		 * 사용자의 이름을 변경한다.
+		 */
+	/*
+	 * public void renameUserManage(String dn, String name) { String[] nodes =
+	 * dn.split(","); nodes[0] = "cn=" + name;
+	 * 
+	 * String newDn = ""; for (String node : nodes) { newDn = newDn + "," + node; }
+	 * 
+	 * newDn = newDn.substring(1); userManageLdapDAO.moveUserManage(dn, newDn); }
+	 * 
+	 *//**
+		 * 조직을 이동한다.
+		 */
+	/*
+	 * public void moveOrgManage(String dn, String parentDn) { String name =
+	 * dn.split(",")[0];
+	 * 
+	 * deptManageLdapDAO.moveDeptManage(dn, name + "," + parentDn); }
+	 * 
+	 *//**
+		 * 부서정보를 수정한다.
+		 */
+	/*
+	 * public void modifyDeptManage(UcorgVO ucorgVO) throws Exception {
+	 * deptManageLdapDAO.updateDeptManage(ucorgVO); }
+	 * 
+	 *//**
+		 * 사용자의 정보를 수정한다.
+		 *//*
+			 * public void modifyUserManage(UserVO userVO) {
+			 * userManageLdapDAO.updateUserManage(userVO); }
+			 */
 
 }
