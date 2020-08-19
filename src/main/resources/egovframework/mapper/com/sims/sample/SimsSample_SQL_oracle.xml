@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed May 11 15:49:39 KST 2016-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SimsSample">
+    
+	<select id="selectCmmCodeCamel" resultType="camelmap">
+		<include refid="PaginationMapper.header"></include>
+		SELECT 
+			* 
+		FROM
+			COMTCCMMNCODE
+        <include refid="PaginationMapper.fieldFilter"></include>
+		<include refid="PaginationMapper.footer"></include>		 		
+ 	</select>
+ 	
+ 	<select id="selectCmmCode" resultType="hashmap">
+		<include refid="PaginationMapper.header"></include>
+		SELECT 
+			* 
+		FROM
+			COMTCCMMNCODE
+        <include refid="PaginationMapper.fieldFilter"></include>
+		<include refid="PaginationMapper.footer"></include>		 		
+ 	</select>
+	
+	 
+
+</mapper>

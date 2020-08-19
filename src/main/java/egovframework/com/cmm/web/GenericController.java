@@ -120,11 +120,14 @@ public class GenericController {
         	searchVO.put("filtersOrigin", filterStr.toString());
         	searchVO.put("filters", filters);
     	}
+    	searchVO.put("listType", "page");
     	List<?> dataList = commonService.selectList(searchVO.get("sqlid").toString(),searchVO);
     	mav.addObject("rows", dataList);
     	
+    	
+    	searchVO.put("listType", "total");
     	@SuppressWarnings("unchecked")
-		Map<String,Object> paging = commonService.selectOne(searchVO.get("paging_sqlid").toString(),searchVO);
+		Map<String,Object> paging = commonService.selectOne(searchVO.get("sqlid").toString(),searchVO);
     	mav.addObject("total", paging.get("TOTAL"));
     	mav.addObject("page", paging.get("PAGE"));
     	mav.addObject("records", paging.get("RECORDS"));
